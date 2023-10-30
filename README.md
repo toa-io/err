@@ -7,9 +7,13 @@ Error constructor for Maybe Monads.
 - `code` first, `message` optional
 - instance of `Error`
 - no stack trace
-- enumerable properties
+- serializable
 
 ## Examples
+
+```typescript
+import { Err } from 'error-value'
+```
 
 ```typescript
 const err = Err('BAD')
@@ -28,5 +32,5 @@ console.log(err.message) // 'Something bad happened'
 const err = Err('BAD', { foo: 'bar' })
 
 console.log(err.foo) // 'bar'
-console.log(Object.keys(err)) // ['code', 'foo']
+console.log(JSON.stringify(err)) // '{"code":"BAD","foo":"bar"}'
 ```

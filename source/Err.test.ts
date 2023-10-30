@@ -36,3 +36,12 @@ it('should expose specified properties', async () => {
 
   expect(err.foo).toBe('bar')
 })
+
+it('should be serializable', async () => {
+  const err = Err('TEST', { foo: 'bar' })
+
+  expect(JSON.parse(JSON.stringify(err))).toStrictEqual({
+    code: 'TEST',
+    foo: 'bar'
+  })
+})
