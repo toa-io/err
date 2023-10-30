@@ -1,5 +1,5 @@
 {
-  "name": "@toa.io/err",
+  "name": "error-value",
   "version": "0.1.0",
   "description": "Errors as values",
   "keywords": [
