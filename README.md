@@ -20,6 +20,7 @@ const err = Err('BAD')
 
 console.log(err instanceof Error) // true
 console.log(err.code) // 'BAD'
+console.log(err.message) // 'BAD'
 ```
 
 ```typescript
