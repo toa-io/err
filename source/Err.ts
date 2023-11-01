@@ -1,7 +1,7 @@
-function Err<T> (code: string): ErrorValue<T>
-function Err<T> (code: string, message: string): ErrorValue<T>
-function Err<T> (code: string, properties: T): ErrorValue<T>
-function Err<T> (code: string, properties?: string | Record<string, unknown>): ErrorValue<T> {
+function Err<T> (code: string): ErrorType<T>
+function Err<T> (code: string, message: string): ErrorType<T>
+function Err<T> (code: string, properties: T): ErrorType<T>
+function Err<T> (code: string, properties?: string | Record<string, unknown>): ErrorType<T> {
   if (typeof properties === 'string')
     properties = { message: properties }
 
@@ -29,9 +29,6 @@ function property (value: any): PropertyDescriptor {
   return { value, enumerable: true }
 }
 
-export type ErrorValue<T> = {
-  code: string
-  message?: string
-} & T
+export type ErrorType<T> = Error & { code: string } & T
 
 export { Err }

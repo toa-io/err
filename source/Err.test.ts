@@ -52,3 +52,14 @@ it('should be serializable', async () => {
     foo: 'bar'
   })
 })
+
+it('should be compatible', async () => {
+  function test (e: Error): Error {
+    return e
+  }
+
+  const err = Err('TEST', { foo: 'bar' })
+
+  // should not highlight error
+  test(err)
+})
