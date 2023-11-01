@@ -1,4 +1,4 @@
-import { Err, type ErrorType } from './Err'
+import { Err } from './Err'
 
 it('should be instance of Error', async () => {
   const err = Err('TEST')
