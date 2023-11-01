@@ -18,12 +18,6 @@ it('should set code', async () => {
   expect(err.code).toBe('TEST')
 })
 
-it('should set code as message if no message is provided', async () => {
-  const err = Err('TEST')
-
-  expect(err.message).toBe('TEST')
-})
-
 it('should expose code as enumerable property', async () => {
   const err = Err('TEST')
 
@@ -48,7 +42,6 @@ it('should be serializable', async () => {
 
   expect(JSON.parse(JSON.stringify(err))).toStrictEqual({
     code: 'TEST',
-    message: 'TEST',
     foo: 'bar'
   })
 })

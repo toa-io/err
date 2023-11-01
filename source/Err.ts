@@ -10,9 +10,6 @@ function Err<T> (code: string, properties?: string | Record<string, unknown>): E
     ...(properties === undefined ? undefined : map(properties))
   }
 
-  if (descriptor.message === undefined)
-    descriptor.message = property(code)
-
   return Object.create(Error.prototype, descriptor)
 }
 
