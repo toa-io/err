@@ -29,6 +29,6 @@ function property (value: any): PropertyDescriptor {
   return { value, enumerable: true }
 }
 
-export type ErrorType<T = undefined> = Error & { code: string } & T
+export type ErrorType<T = Record<string, never>> = Error & { code: string } & T
 
 export { Err }

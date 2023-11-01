@@ -1,4 +1,4 @@
-import { Err } from './Err'
+import { Err, type ErrorType } from './Err'
 
 it('should be instance of Error', async () => {
   const err = Err('TEST')
@@ -58,7 +58,9 @@ it('should be compatible', async () => {
     return e
   }
 
-  const err = Err('TEST')
+  const err: ErrorType = Err('TEST')
+
+  console.log(err.code, err.message)
 
   // should not highlight error
   test(err)

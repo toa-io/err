@@ -1,6 +1,6 @@
 {
   "name": "error-value",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Errors as values",
   "keywords": [
     "javascript",
