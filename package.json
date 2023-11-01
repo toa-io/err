@@ -1,16 +1,17 @@
 {
   "name": "error-value",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Errors as values",
   "keywords": [
     "javascript",
+    "typescript",
     "maybe monad"
   ],
   "license": "MIT",
   "author": "temich <tema.gurtovoy@gmail.com>",
   "homepage": "https://github.com/toa-io/err#readme",
-  "main": "transpiled/match.js",
-  "types": "transpiled/match.d.ts",
+  "main": "transpiled/Err.js",
+  "types": "transpiled/Err.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toa-io/err.git"
