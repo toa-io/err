@@ -9,6 +9,11 @@ Error constructor for Maybe Monads.
 - no stack trace
 - serializable
 
+## API
+
+- `Err(code: string, message?: string)`
+- `Err(code: string, details?: object)`
+
 ## Examples
 
 ```typescript
