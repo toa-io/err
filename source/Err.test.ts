@@ -1,49 +1,47 @@
-import { Err, type ErrorType } from './Err'
+import * as util from 'util'
+import { Err } from './Err'
 
 it('should be instance of Error', async () => {
-  const err = Err('TEST')
+  const err = new Err('TEST')
 
   expect(err).toBeInstanceOf(Error)
 })
 
 it('should not create stack trace', async () => {
-  const err = Err('TEST')
+  const err = new Err('TEST')
 
   expect('stack' in err).toBe(false)
 })
 
 it('should set code', async () => {
-  const err = Err('TEST')
+  const err = new Err('TEST')
 
   expect(err.code).toBe('TEST')
 })
 
 it('should expose code as enumerable property', async () => {
-  const err = Err('TEST')
+  const err = new Err('TEST')
 
   expect(Object.keys(err)).toContain('code')
 })
 
 it('should expose message', async () => {
-  const err = Err('TEST', 'Something went wrong')
+  const err = new Err('TEST', 'Something went wrong')
 
   expect(err.message).toBe('Something went wrong')
   expect(Object.keys(err)).toStrictEqual(['code', 'message'])
 })
 
-it('should expose specified properties', async () => {
-  const err = Err('TEST', { foo: 'bar' })
+it('should be inspected as Error', () => {
+  const err = new Err('NOT_FOUND')
+  const one = util.inspect(err)
 
-  expect(err.foo).toBe('bar')
-})
+  expect(one).toBe('Error { code: \'NOT_FOUND\' }')
 
-it('should be serializable', async () => {
-  const err = Err('TEST', { foo: 'bar' })
+  const msg = new Err('NOT_FOUND', 'Resource not found')
+  const two = util.inspect(msg)
 
-  expect(JSON.parse(JSON.stringify(err))).toStrictEqual({
-    code: 'TEST',
-    foo: 'bar'
-  })
+  expect(two).toBe('Error { code: \'NOT_FOUND\', message: \'Resource not found\' }')
 })
 
 it('should be compatible', async () => {
@@ -51,10 +49,19 @@ it('should be compatible', async () => {
     return e
   }
 
-  const err: ErrorType = Err('TEST')
+  const err = new Err('TEST', 'hello')
 
   console.log(err.code, err.message)
+  console.log(err)
 
   // should not highlight error
   test(err)
+})
+
+it('should be serializable', () => {
+  const code = new Err('TEST')
+  const message = new Err('TEST', 'Something went wrong')
+
+  expect(JSON.stringify(code)).toBe('{"code":"TEST"}')
+  expect(JSON.stringify(message)).toBe('{"code":"TEST","message":"Something went wrong"}')
 })
