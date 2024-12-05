@@ -65,3 +65,12 @@ it('should be serializable', () => {
   expect(JSON.stringify(code)).toBe('{"code":"TEST"}')
   expect(JSON.stringify(message)).toBe('{"code":"TEST","message":"Something went wrong"}')
 })
+
+it('should set cause', () => {
+  const err = new Err(500, { foo: 'bar' })
+
+  expect(err.code).toBe(500)
+  expect(err.cause).toStrictEqual({ foo: 'bar' })
+  expect(err.message).toStrictEqual('')
+  expect(JSON.stringify(err)).toBe('{"code":500,"cause":{"foo":"bar"}}')
+})

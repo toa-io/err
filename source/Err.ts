@@ -1,18 +1,26 @@
-export class Err implements Error {
+export class Err<
+  Code extends string | number = string | number,
+  Cause extends Exclude<any, string> = any
+> implements Error {
   public readonly name = 'Error'
-  public readonly code: string
+  public readonly code: Code
   public readonly message: string = ''
+  public readonly cause: Cause | undefined
 
-  public constructor (code: string | number, message?: string) {
-    this.code = code.toString()
-    this.message = message ?? ''
+  public constructor (code: Code, message?: string)
+  public constructor (code: Code, cause?: Cause)
+  public constructor (code: Code, argument: string | Cause) {
+    this.code = code
 
     Object.setPrototypeOf(this, Error.prototype)
     Object.defineProperty(this, 'name', { enumerable: false })
 
-    if (message === undefined)
+    if (typeof argument === 'string') {
+      this.message = argument
+      Object.defineProperty(this, 'cause', { enumerable: false })
+    } else {
       Object.defineProperty(this, 'message', { enumerable: false })
-    else
-      this.message = message
+      Object.defineProperty(this, 'cause', { enumerable: argument !== undefined, value: argument })
+    }
   }
 }
