@@ -1,18 +1,19 @@
 export class Err<
-  Code extends string | number = string | number,
-  Cause extends Exclude<any, string> = any
-> implements Error {
-  public readonly name = 'Error'
-  public readonly code: Code
-  public readonly message: string = ''
-  public readonly cause: Cause | undefined
+  TCode extends string | number = string | number,
+  TCause extends Exclude<any, string> = any
+> extends Error {
+  public readonly code: TCode
+  public override readonly name = 'Error'
+  public override readonly message: string = ''
+  public override readonly cause: TCause | undefined
 
-  public constructor (code: Code, message?: string)
-  public constructor (code: Code, cause?: Cause)
-  public constructor (code: Code, argument: string | Cause) {
+  public constructor (code: TCode, message?: string)
+  public constructor (code: TCode, cause?: TCause)
+  public constructor (code: TCode, argument: string | TCause) {
+    super()
     this.code = code
 
-    Object.setPrototypeOf(this, Error.prototype)
+    delete this.stack
     Object.defineProperty(this, 'name', { enumerable: false })
 
     if (typeof argument === 'string') {

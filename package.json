@@ -1,6 +1,6 @@
 {
   "name": "error-value",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "description": "Errors as values",
   "keywords": [
     "javascript",
@@ -23,7 +23,8 @@
     "access": "public"
   },
   "scripts": {
-    "prepublishOnly": "rm -rf transpiled && npx tsc",
+    "prepublishOnly": "npm run transpile",
+    "transpile": "rm -rf transpiled && npx tsc",
     "test": "jest"
   },
   "jest": {

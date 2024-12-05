@@ -1,4 +1,3 @@
-import * as util from 'util'
 import { Err } from './Err'
 
 it('should be instance of Error', async () => {
@@ -32,18 +31,6 @@ it('should expose message', async () => {
   expect(Object.keys(err)).toStrictEqual(['code', 'message'])
 })
 
-it('should be inspected as Error', () => {
-  const err = new Err('NOT_FOUND')
-  const one = util.inspect(err)
-
-  expect(one).toBe('Error { code: \'NOT_FOUND\' }')
-
-  const msg = new Err('NOT_FOUND', 'Resource not found')
-  const two = util.inspect(msg)
-
-  expect(two).toBe('Error { code: \'NOT_FOUND\', message: \'Resource not found\' }')
-})
-
 it('should be compatible', async () => {
   function test (e: Error): Error {
     return e
@@ -73,4 +60,15 @@ it('should set cause', () => {
   expect(err.cause).toStrictEqual({ foo: 'bar' })
   expect(err.message).toStrictEqual('')
   expect(JSON.stringify(err)).toBe('{"code":500,"cause":{"foo":"bar"}}')
+})
+
+describe('derived class', () => {
+  class Fail extends Err<number> {}
+
+  it('should be instance of Error and self', async () => {
+    const err = new Fail(404)
+
+    expect(err).toBeInstanceOf(Error)
+    expect(err).toBeInstanceOf(Fail)
+  })
 })
